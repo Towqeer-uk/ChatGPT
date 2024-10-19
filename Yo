@@ -1,0 +1,31 @@
+from mido import Message, MidiFile, MidiTrack
+
+# Create a new MIDI file
+mid = MidiFile()
+track = MidiTrack()
+mid.tracks.append(track)
+
+# Define the chord melody notes for each measure
+melody_notes = [
+    [69, 72, 76, 72],  # Am: A, C, E, C
+    [69, 65, 60, 65],  # F: A, F, C, F
+    [67, 64, 60, 64],  # C: G, E, C, E
+    [62, 67, 71, 67]   # G: D, G, B, G
+]
+
+# Set time per note (quarter note) and velocity
+time_per_note = 480
+velocity = 64
+
+# Add the melody notes to the MIDI track
+for measure in melody_notes:
+    for note in measure:
+        track.append(Message('note_on', note=note, velocity=velocity, time=0))
+        track.append(Message('note_off', note=note, velocity=velocity, time=time_per_note))
+
+# Save the MIDI file
+midi_file_path = '/mnt/data/sad_melody_chord_progression.mid'
+mid.save(midi_file_path)
+
+midi_file_path
+
